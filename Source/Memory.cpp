@@ -24,7 +24,7 @@ Memory::Memory(const std::string& processName) {
 	}
 	if (!_handle) {
 		MessageBox(GetActiveWindow(), L"Process not found in RAM. Please open The Witness and then try again.", NULL, MB_OK);
-		throw std::exception("Unable to find process!");
+		throw std::runtime_error("Unable to find process!");
 	}
 
 	// Next, get the process base address
@@ -42,7 +42,7 @@ Memory::Memory(const std::string& processName) {
 		}
 	}
 	if (_baseAddress == 0) {
-		throw std::exception("Couldn't find the base process address!");
+		throw std::runtime_error("Couldn't find the base process address!");
 	}
 }
 
@@ -94,13 +94,13 @@ int Memory::findGlobals() {
 }
 
 void Memory::ThrowError(std::string message) {
-	if (!showMsg) throw std::exception(message.c_str());
+	if (!showMsg) throw std::runtime_error(message.c_str());
 	DWORD exitCode;
 	GetExitCodeProcess(_handle, &exitCode);
-	if (exitCode != STILL_ACTIVE) throw std::exception(message.c_str());
+	if (exitCode != STILL_ACTIVE) throw std::runtime_error(message.c_str());
 	message += "\nPlease close The Witness and try again. If the error persists, please report the issue on the Github Issues page.";
 	MessageBoxA(GetActiveWindow(), message.c_str(), NULL, MB_OK);
-	throw std::exception(message.c_str());
+	throw std::runtime_error(message.c_str());
 }
 
 void Memory::ThrowError(const std::vector<int>& offsets, bool rw_flag) {

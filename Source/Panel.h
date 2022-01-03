@@ -1,7 +1,8 @@
 #pragma once
 #include "Memory.h"
 #include "Randomizer.h"
-#include <stdint.h>
+#include <cstdint>
+#include <cmath>
 
 struct Point {
 	int first;

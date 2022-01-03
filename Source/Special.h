@@ -165,7 +165,7 @@ public:
 		bytes.resize(1024, 0);
 		std::vector<byte> itemb;
 		itemb.resize(sizeof(T));
-		std::memcpy(&itemb[0], &item, sizeof(T));
+		memcpy(&itemb[0], &item, sizeof(T));
 		for (address = startAddress; address < startAddress + length; address += 1024) {
 			if (!memory.Read(reinterpret_cast<LPCVOID>(address), &bytes[0], 1024))
 				continue;
@@ -184,7 +184,7 @@ public:
 		bytes.resize(1024, 0);
 		std::vector<byte> itemb;
 		itemb.resize(sizeof(T) - 1);
-		std::memcpy(&itemb[0], &item, sizeof(T) - 1);
+		memcpy(&itemb[0], &item, sizeof(T) - 1);
 		for (address = startAddress; address < startAddress + length; address += 1024) {
 			if (!memory.Read(reinterpret_cast<LPCVOID>(address), &bytes[0], 1024))
 				continue;
